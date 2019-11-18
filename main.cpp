@@ -21,7 +21,8 @@ private:
 int kiekis = 0;
     bool stop = false,
          Kartojam = true,
-         tiesa;
+         tiesa,
+         melas;
 public:
     void Menu()
     {
@@ -32,7 +33,7 @@ public:
         cout << "4. Patikrinti ar eile tuscia                " << endl;
         cout << "5. Patikrinti ar eile pilna + praplesti     " << endl;
         cout << "6. Nustatyti eiles dydi                     " << endl;
-        cout << "7. isvesti i ekrana                         " << endl;
+        cout << "7. isvesti i ekrana/faila                   " << endl;
         cout << "8. apsuskti                                 " << endl;
         cout << "9. Iseiti                                   " << endl;
 
@@ -186,11 +187,25 @@ else if (pasirinkti()=="9"){
 
     void isvesti (){
      if(pasirinkti()=="7"){
+ cout << "pasirinkite ar norite isvesti duomenis i ekrana ar i faila " << endl;
+        cout << "1- i faila, 0- i ekrana/console";
+        cin >> melas;
+        if( melas==0) {
 cout << " dekas dabar atrodo taip" << endl;
          for(int i=0;i<n;i++){
         cout << A[i] << " ";
          }
-          kiekis=kiekis+1;
+
+    }
+    else {
+            ofstream fr("rez.txt");
+            fr << "dekas atrodo taip" << endl;
+    for(int i=0;i<n;i++){
+        fr << A[i] << " ";
+    }
+
+    }
+    kiekis=kiekis+1;
     }
     }
 

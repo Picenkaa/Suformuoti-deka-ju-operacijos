@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1574086087 source:c:\users\lenovo\desktop\ads 2 nd\main.cpp
+	<iostream>
+	<fstream>
+	<conio.h>
+	<string>
+	<cstdlib>
+	<algorithm>
+	<fstream>
+

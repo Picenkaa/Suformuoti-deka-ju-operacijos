@@ -5,6 +5,9 @@
 #include <cstdlib>
 #include <algorithm>
 #include <fstream>
+#include <array>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 using namespace std;
@@ -15,8 +18,6 @@ private:
 
     string choice; // meniu pasirinkimas
     int n;
-
-    int A[100] = { };
     char pasirinkimas; // darbo pabaigos pasrinktis
     int kiekis = 0;
     bool stop = false,
@@ -24,7 +25,18 @@ private:
          tiesa,
          melas;
          int efektyvymas=0;
+         int counteris =0;
+  int count = 0;
+  int *A;
+
+
+
+
+
 public:
+
+
+
     void Menu()
     {
         cout << "Pasirinkite programa:                       " << endl;
@@ -53,26 +65,52 @@ public:
         cin >> tiesa;
         if( tiesa==0)
         {
-            cout << " iveskite skaciu aibe elementu kieki " << endl;
+            cout << " iveskite elementu kieki " << endl;
+
             cin >> n;
+
+A = (int*) malloc(1*sizeof(int));
+A = (int*) realloc(A, n*sizeof(int));
             cout << " iveskite elementus " << endl;
             for(int i=0; i<n; i++)
             {
-                cin >> A[i];
+                cin >>  A[i];
+
+
             }
+
         }
         else
         {
             ifstream fd("duom.txt");
             fd >> n;
+            /*
+             count++;
+
+     more_numbers = (int*) realloc (A, count * sizeof(int));
+
+     if (more_numbers!=NULL) {
+       A=more_numbers;
+      A[count-1]=n;
+     }
+     else {
+       free (A);
+       puts ("Error (re)allocating memory");
+       exit (1);
+     }
+*/
+
             for(int i=0; i<n; i++)
             {
                 fd >> A[i];
             }
             fd.close();
 
+
         }
+        counteris=n;
     }
+
     void logika()
     {
         if(pasirinkti()=="1")
@@ -80,10 +118,11 @@ public:
             cout << " iveskite elementa kuri norite prideti  " << endl;//0(1)
             int a;
             cin >> a;
-            cout << "iveskite i kokia pozija norite ji ideti " << endl;//0(1)
-            // int pos = n;
+            cout << "Iterpti i deko pradzia ar pabaiga" <<  endl;//0(1)
+            cout << " pradzia, rasykite - 0" << " pabaiga, rasykite - " << n << endl;
             int pos;
             cin >> pos;
+            if(pos == n || pos ==0 ) {
             for(int i=n; i>pos; i--) // 0(pos)
             {
                 A[i]=A[i-1];
@@ -95,6 +134,10 @@ public:
             {
                 cout << A[i] << " ";
             }
+            }
+            else {
+                cout << "pozicija nera pirma arba paskutine " << endl;
+            }
             kiekis=kiekis+1;  //
             efektyvymas = (n+pos);
             cout << "kodo efektyvumas yra lygus  = "<< "O(" << n+pos << ")" << endl;
@@ -103,8 +146,11 @@ public:
         {
             cout<<"Iveskite elementa kuri norite istrinti : ";
             int del;
-            int count;
+            int countt;
+            cout << "iveskite kuris elementa norite pasalinti is pradzios ar pabaigos " <<  endl;//0(1)
+            cout << " is pradzios rasykite - " << A[0] << " paskutini- rasykite - " << A[n-1] << endl;
             cin>>del;
+             if(del == A[n-1] || del ==A[0] ) {
             for(int i=0; i<n; i++)
             {
                 if(A[i]==del)
@@ -113,11 +159,11 @@ public:
                     {
                         A[j]=A[j+1];
                     }
-                    count++;
+                    countt++;
                     break;
                 }
             }
-            if(count==0)
+            if(countt==0)
             {
                 cout<<"Nerasta elementas ";
             }
@@ -131,6 +177,8 @@ public:
                     cout<<A[i]<<" ";
                 }
             }
+             }
+             else { cout << "elementas nera pirma arba paskutinis" << endl;}
             efektyvymas=efektyvymas+(n*(n-1))+n;
              cout << "algoritmo efektyvumas yra lygus  = "<< "O(" << (n*(n-1))+n << ")" << endl;
             kiekis=kiekis+1;
@@ -151,8 +199,10 @@ public:
         }
         else if (pasirinkti()=="4")
         {
-            if(n==0)
-                cout << " eile tuscia " << endl;
+
+            if(counteris >n)
+                cout << " eile tuscia truksta " << counteris-n << " elementu" << endl;
+
             else
                 cout << " eile pilna noredami praplesti meniu pasirinkite 1 punkta " << endl;
             cout<<" dekas yra \n";
@@ -166,10 +216,10 @@ public:
         }
         else if (pasirinkti()=="5")
         {
-            if(n!=0)
+            if(counteris<=n)
                 cout << "eile pilna noredami praplesti meniu pasirinkite 1 punkta" << endl;
             else
-                cout << " eile tuscia" << endl;
+                 cout << " eile tuscia truksta " << counteris-n << " elementu" << endl;
             cout<<" dekas yra \n";
             for(int i=0; i<n; i++)
             {
@@ -307,6 +357,7 @@ int main()
         dekas.logika();
         dekas.isvesti();
         dekas.again();
+
     }
     cout << "atliktu zingsiu skaicius = " << dekas.kiekiss() << endl;
      cout << "algoritmo efektyvumas yra lygus  = "<< dekas.kieki() << endl;

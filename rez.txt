@@ -1,4 +1,2 @@
 dekas atrodo taip
-1
-2
-3
+1 2 3 

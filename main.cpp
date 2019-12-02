@@ -84,21 +84,8 @@ A = (int*) realloc(A, n*sizeof(int));
         {
             ifstream fd("duom.txt");
             fd >> n;
-            /*
-             count++;
-
-     more_numbers = (int*) realloc (A, count * sizeof(int));
-
-     if (more_numbers!=NULL) {
-       A=more_numbers;
-      A[count-1]=n;
-     }
-     else {
-       free (A);
-       puts ("Error (re)allocating memory");
-       exit (1);
-     }
-*/
+           A = (int*) malloc(1*sizeof(int));
+A = (int*) realloc(A, n*sizeof(int));
 
             for(int i=0; i<n; i++)
             {
